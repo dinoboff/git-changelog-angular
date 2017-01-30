@@ -13,17 +13,31 @@
   },
   "main": "lib/index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "format": "npm run lint -- --fix",
+    "lint": "eslint bin/ lib/",
+    "test": "npm run lint"
   },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/dinoboff/git-changelog-angular.git"
   },
-  "keywords": ["git", "changelog", "convention", ""],
+  "keywords": [
+    "git",
+    "changelog",
+    "convention"
+  ],
   "author": "Damien Lebrun",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/dinoboff/git-changelog-angular/issues"
   },
-  "homepage": "https://github.com/dinoboff/git-changelog-angular#readme"
+  "homepage": "https://github.com/dinoboff/git-changelog-angular#readme",
+  "devDependencies": {
+    "eslint": "^3.14.1",
+    "eslint-config-xo": "^0.17.0",
+    "eslint-plugin-node": "^3.0.5"
+  },
+  "engines": {
+    "node": ">=6.0.0"
+  }
 }
