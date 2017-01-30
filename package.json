@@ -1,0 +1,29 @@
+{
+  "name": "git-changelog-angular",
+  "version": "0.0.0",
+  "description": "Generate a change log using angular commit convention",
+  "files": [
+    "bin/",
+    "lib/",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "bin": {
+    "git-changelog": "bin/git-changelog.js"
+  },
+  "main": "lib/index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/dinoboff/git-changelog-angular.git"
+  },
+  "keywords": ["git", "changelog", "convention", ""],
+  "author": "Damien Lebrun",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/dinoboff/git-changelog-angular/issues"
+  },
+  "homepage": "https://github.com/dinoboff/git-changelog-angular#readme"
+}
