@@ -5,6 +5,7 @@
   "files": [
     "bin/",
     "lib/",
+    "test/",
     "README.md",
     "LICENSE.md"
   ],
@@ -13,9 +14,22 @@
   },
   "main": "lib/index.js",
   "scripts": {
+    "coverage": "nyc --reporter=text --reporter=lcov ava",
     "format": "npm run lint -- --fix",
-    "lint": "eslint bin/ lib/",
-    "test": "npm run lint"
+    "lint": "eslint bin/ lib/ test/",
+    "parser": "pegjs --output lib/parser.js lib/parser.pegjs",
+    "prepublish": "npm run parser",
+    "test": "ava -vv && npm run lint",
+    "test:unit": "ava -vv",
+    "test:watch": "ava --watch"
+  },
+  "ava": {
+    "timeout": "10s",
+    "source": [
+      "bin/*.js",
+      "lib/**/*.{js,pegjs}",
+      "test/**/*.js"
+    ]
   },
   "repository": {
     "type": "git",
@@ -33,11 +47,26 @@
   },
   "homepage": "https://github.com/dinoboff/git-changelog-angular#readme",
   "devDependencies": {
+    "ava": "^0.18.0",
     "eslint": "^3.14.1",
     "eslint-config-xo": "^0.17.0",
-    "eslint-plugin-node": "^3.0.5"
+    "eslint-plugin-node": "^3.0.5",
+    "nyc": "^10.1.2",
+    "pegjs": "^0.10.0",
+    "tempfile": "^1.1.1"
   },
   "engines": {
     "node": ">=6.0.0"
+  },
+  "dependencies": {
+    "bl": "^1.2.0",
+    "debug": "^2.6.0",
+    "get-stream": "^3.0.0",
+    "handlebars": "^4.0.6",
+    "js-yaml": "^3.7.0",
+    "lodash.clonedeepwith": "^4.5.0",
+    "pluralize": "^3.1.0",
+    "split": "^1.0.0",
+    "through2": "^2.0.3"
   }
 }

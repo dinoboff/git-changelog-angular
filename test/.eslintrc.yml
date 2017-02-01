@@ -1,0 +1,13 @@
+extends: "../.eslintrc.yml"
+parserOptions: 
+  ecmaFeatures: 
+    jsx: false
+    experimentalObjectRestSpread: false
+  ecmaVersion: 2017
+  sourceType: module
+rules:
+  node/no-unsupported-features:
+    - error
+    - ignores:
+        - modules
+        - asyncAwait
