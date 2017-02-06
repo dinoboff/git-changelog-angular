@@ -1,4 +1,8 @@
-extends: "../.eslintrc.yml"
+plugins:
+  - ava
+extends:
+  - "../.eslintrc.yml"
+  - plugin:ava/recommended
 parserOptions: 
   ecmaFeatures: 
     jsx: false

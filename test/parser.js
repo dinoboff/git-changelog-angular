@@ -91,7 +91,7 @@ Older IEs serialize html uppercased, but IE9 does not...
 Would be better to expect case insensitive, unfortunately jasmine does
 not allow to user regexps for throw expectations.`;
 
-test('parse commit message with an issue reference and a breaking change', matchCommit, WITHOUT_FOOTER, {
+test('parse commit message with no footer', matchCommit, WITHOUT_FOOTER, {
   type: 'fix',
   scope: '$compile',
   title: 'couple of unit tests for IE9',
@@ -276,7 +276,7 @@ Added new event to $browser:
 
 Breaks $browser.onHashChange, which was removed (use onUrlChange instead)`;
 
-test('parse commit message with global scope', matchCommit, WITH_NO_TYPE, {
+test('parse commit message with missing type', matchCommit, WITH_NO_TYPE, {
   type: null,
   scope: null,
   title: 'onUrlChange event (popstate/hashchange/polling)',
@@ -296,7 +296,7 @@ test('parse commit message with global scope', matchCommit, WITH_NO_TYPE, {
 //
 const WITH_JUST_TITLE = `onUrlChange event (popstate/hashchange/polling)`;
 
-test('parse commit message with global scope', matchCommit, WITH_JUST_TITLE, {
+test('parse commit basic message', matchCommit, WITH_JUST_TITLE, {
   type: null,
   scope: null,
   title: 'onUrlChange event (popstate/hashchange/polling)',
@@ -313,7 +313,7 @@ const WITH_REVERT_HASH = `revert: onUrlChange event (popstate/hashchange/polling
 
 This reverts commit 1111111111111111111111111111111111111111.`;
 
-test('parse commit message with global scope', matchCommit, WITH_REVERT_HASH, {
+test('parse commit revert message', matchCommit, WITH_REVERT_HASH, {
   type: 'revert',
   scope: null,
   title: 'onUrlChange event (popstate/hashchange/polling)',

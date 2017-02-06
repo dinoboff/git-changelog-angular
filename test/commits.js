@@ -1,6 +1,5 @@
 import test from 'ava';
 import shell from 'shelljs';
-import tempfile from 'tempfile';
 
 import commits from '../lib/commits';
 
@@ -77,13 +76,6 @@ test('query commit author', async t => {
 
   t.deepEqual(commits[0].author.name, 'Bob Smith');
   t.deepEqual(commits[0].author.email, 'bob@example.com');
-});
-
-test('query commit committer', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
-
-  t.deepEqual(commits[0].committer.name, 'Alice Smith');
-  t.deepEqual(commits[0].committer.email, 'alice@example.com');
 });
 
 test('query commit committer', async t => {
