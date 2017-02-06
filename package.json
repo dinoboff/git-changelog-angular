@@ -69,7 +69,9 @@
     "js-yaml": "^3.7.0",
     "lodash.clonedeepwith": "^4.5.0",
     "pluralize": "^3.1.0",
+    "semver": "^5.3.0",
     "split": "^1.0.0",
+    "tagged-versions": "github:dinoboff/tagged-versions#v1.4.0-1",
     "through2": "^2.0.3",
     "yargs": "^6.6.0"
   }
