@@ -4,22 +4,22 @@ Generate a change log from git commits using angular commit convention.
 
 ## Usage
 
-By default, `git-changelog` will bump the version  in "./VERSION" and output the
-change log to stdout. To release a new version with `git-changelog` and `[hub]`
-in your path:
+Release example with npm and [hub].
 
 ```
-git changelog v1.0.0..HEAD > dev.log \
-  && npm version $(cat VERSION) \
-  && git push origin master "v$(cat VERSION)" \
-  && hub release create --draft --file dev.log --browse "v$(cat VERSION)" \
-  && rm dev.log
+echo '' >> .gitignore
+echo release.draft.md >> .gitignore
+
+git changelog v1.0.0..HEAD > release.draft.md
+npm version minor
+git push origin master v1.1.0 \
+hub release create --draft --file release.draft.md --browse v1.1.0
 ```
 
 ## install
 
 ```
-npm install git-changelog-angular
+npm install -g git-changelog-angular
 ```
 
 ## License
