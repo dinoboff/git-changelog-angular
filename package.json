@@ -51,6 +51,7 @@
     "eslint": "^3.14.1",
     "eslint-config-xo": "^0.17.0",
     "eslint-plugin-node": "^3.0.5",
+    "lodash.omit": "^4.5.0",
     "nyc": "^10.1.2",
     "pegjs": "^0.10.0",
     "sinon": "^1.17.7",

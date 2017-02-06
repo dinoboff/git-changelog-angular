@@ -1,37 +1,45 @@
 import test from 'ava';
-import sinon from 'sinon';
-import yargs from 'yargs';
+import omit from 'lodash.omit';
 
 import cli from '../../lib/cli';
+import {tempRepo} from '../helpers/index.js';
 
-test.beforeEach(() => sinon.stub(yargs, 'showHelp'));
+const repo = tempRepo();
 
-test.afterEach.always(() => yargs.showHelp.restore());
-
-test('parse rev from argv', t => {
-  t.deepEqual(cli.config([]), {
-    rev: ['HEAD'],
-    gitDir: undefined,
-    showHelp: yargs.showHelp
-  });
-
-  t.deepEqual(cli.config(['foo', '^bar']), {
-    rev: ['foo', '^bar'],
-    gitDir: undefined,
-    showHelp: yargs.showHelp
-  });
+test.before(async () => {
+  await repo.init();
 });
 
-test('parse gitDir from argv', t => {
-  t.deepEqual(cli.config([]), {
-    rev: ['HEAD'],
-    gitDir: undefined,
-    showHelp: yargs.showHelp
-  });
-
-  t.deepEqual(cli.config(['--git-dir=./.git']), {
-    rev: ['HEAD'],
-    gitDir: '.git',
-    showHelp: yargs.showHelp
-  });
+test.after.always(async () => {
+  await repo.remove();
 });
+test('default config', matchConfig, [], {
+  rev: ['HEAD'],
+  gitDir: undefined
+});
+
+test('config with revision list', matchConfig, ['^foo', 'bar'], {
+  rev: ['^foo', 'bar'],
+  gitDir: undefined
+});
+
+test('config with --git-dir', matchConfig, ['--git-dir', './.git'], {
+  rev: ['HEAD'],
+  gitDir: '.git'
+});
+
+test('config client with --git-dir', async t => {
+  const config = cli.config(['--git-dir', repo.gitDir]);
+  const gitDir = await config.client(['rev-parse', '--git-dir'], {capture: true});
+
+  t.is(gitDir.trim(), repo.gitDir);
+});
+
+function matchConfig(t, args, expected) {
+  const fns = ['client', 'showHelp'];
+  const config = cli.config(args);
+
+  t.deepEqual(omit(config, fns), omit(expected, fns));
+  t.is(typeof config.client, 'function');
+  t.is(typeof config.showHelp, 'function');
+}

@@ -28,13 +28,13 @@ test.after.always(async () => {
 });
 
 test('commits get all - non-reverted - commits with formatted messages', async t => {
-  const commits = await changelog.commits({gitDir: repo.gitDir});
+  const commits = await changelog.commits({client: repo.client});
 
   t.deepEqual(commits.length, 2);
 });
 
 test('commits get all commits with formatted messages by revision range', async t => {
-  const commits = await changelog.commits({rev: 'v0.0.0..v0.1.0', gitDir: repo.gitDir});
+  const commits = await changelog.commits({rev: 'v0.0.0..v0.1.0', client: repo.client});
 
   t.deepEqual(commits.length, 1);
 });
@@ -150,7 +150,7 @@ test('breakingChanges filter in the commits with breaking changes', t => {
 });
 
 test('create generate changelog', async t => {
-  const log = await changelog.create({gitDir: repo.gitDir});
+  const log = await changelog.create({client: repo.client});
 
   t.deepEqual(log.match(/###.*/), ['### Bug Fix']);
   t.deepEqual(log.match(/- .* [0-9a-f]{7}/).map(m => m.slice(0, -7)), ['- fix 2 ']);

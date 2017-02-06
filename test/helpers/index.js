@@ -12,6 +12,10 @@ export function tempRepo() {
 
   return {
 
+    get client() {
+      return client;
+    },
+
     get repo() {
       return repo;
     },

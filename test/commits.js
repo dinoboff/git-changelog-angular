@@ -41,13 +41,13 @@ test.after.always(async () => {
 });
 
 test('query all commits by default', async t => {
-  const commits = await get({gitDir: repo.gitDir});
+  const commits = await get({client: repo.client});
 
   t.is(commits.length, 7);
 });
 
 test('query commits by topologic order', async t => {
-  const commits = await get({gitDir: repo.gitDir});
+  const commits = await get({client: repo.client});
 
   t.deepEqual(commits.map(c => c.message.split('\n')[0]), [
     'fix: fix 2',
@@ -61,47 +61,41 @@ test('query commits by topologic order', async t => {
 });
 
 test('query revision range', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', gitDir: repo.gitDir});
+  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
 
   t.deepEqual(commits[0].message, 'feat: feat1');
 });
 
 test('query commit hash', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', gitDir: repo.gitDir});
+  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
 
   t.is(commits[0].hash.length, 40);
 });
 
 test('query commit author', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', gitDir: repo.gitDir});
+  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
 
   t.deepEqual(commits[0].author.name, 'Bob Smith');
   t.deepEqual(commits[0].author.email, 'bob@example.com');
 });
 
 test('query commit committer', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', gitDir: repo.gitDir});
+  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
 
   t.deepEqual(commits[0].committer.name, 'Alice Smith');
   t.deepEqual(commits[0].committer.email, 'alice@example.com');
 });
 
 test('query commit committer', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', gitDir: repo.gitDir});
+  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
 
   t.deepEqual(commits[0].committer.name, 'Alice Smith');
   t.deepEqual(commits[0].committer.email, 'alice@example.com');
 });
 
-test('reject if repo.gitDir is not a git repository', async t => {
-  const err = await t.throws(get({gitDir: tempfile()}));
-
-  t.regex(err.message, /not a git repository/i);
-});
-
 test('map commit', async t => {
   const commits = await get({
-    gitDir: repo.gitDir,
+    client: repo.client,
     rev: 'v0.0.0..v0.1.0',
     mapper: commit => commit.message
   });
@@ -111,7 +105,7 @@ test('map commit', async t => {
 
 test('map commit asynchronously', async t => {
   const commits = await get({
-    gitDir: repo.gitDir,
+    client: repo.client,
     rev: 'v0.0.0..v0.1.0',
     mapper: commit => Promise.resolve(commit.message)
   });
@@ -121,7 +115,7 @@ test('map commit asynchronously', async t => {
 
 test('reject if mapper throws', async t => {
   const err = await t.throws(get({
-    gitDir: repo.gitDir,
+    client: repo.client,
     rev: 'v0.0.0..v0.1.0',
     mapper: commit => commit.foo.bar.baz
   }));
