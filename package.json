@@ -62,7 +62,6 @@
     "node": ">=6.0.0"
   },
   "dependencies": {
-    "bl": "^1.2.0",
     "debug": "^2.6.0",
     "get-stream": "^3.0.0",
     "handlebars": "^4.0.6",
