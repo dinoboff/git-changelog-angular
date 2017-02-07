@@ -67,6 +67,14 @@ test('config with tagged revision', matchConfig, ['--git-dir', repo.gitDir, 'sta
   printHeader: true
 });
 
+test('config without previous tag', matchConfig, ['--git-dir', repo.gitDir, 'master~4'], {
+  rev: ['master~4'],
+  gitDir: repo.gitDir,
+  identifier: undefined,
+  previous: undefined,
+  printHeader: true
+});
+
 test('config with revision range', matchConfig, ['^foo', 'bar'], {
   rev: ['^foo', 'bar'],
   gitDir: undefined,
