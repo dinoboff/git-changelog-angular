@@ -29,37 +29,74 @@ test.after.always(async () => {
 
 test('default config', matchConfig, ['--git-dir', repo.gitDir], {
   rev: ['HEAD', '^v0.0.0'],
-  gitDir: repo.gitDir
+  gitDir: repo.gitDir,
+  identifier: undefined,
+  previous: '0.0.0',
+  printHeader: true
 });
 
 test('config with "--any" flag', matchConfig, ['--any', '--git-dir', repo.gitDir], {
   rev: ['HEAD', '^v0.1.0-0'],
-  gitDir: repo.gitDir
+  gitDir: repo.gitDir,
+  identifier: undefined,
+  previous: '0.1.0-0',
+  printHeader: true
+});
+
+test('config with "--identifier" flag', matchConfig, ['--identifier', 'beta', '--git-dir', repo.gitDir], {
+  rev: ['HEAD', '^v0.1.0-0'],
+  gitDir: repo.gitDir,
+  identifier: 'beta',
+  previous: '0.1.0-0',
+  printHeader: true
 });
 
 test('config with revision', matchConfig, ['--git-dir', repo.gitDir, 'master'], {
   rev: ['master', '^v0.0.0'],
-  gitDir: repo.gitDir
+  gitDir: repo.gitDir,
+  identifier: undefined,
+  previous: '0.0.0',
+  printHeader: true
 });
 
 test('config with tagged revision', matchConfig, ['--git-dir', repo.gitDir, 'stable'], {
   rev: ['stable', '^v0.0.0'],
-  gitDir: repo.gitDir
+  gitDir: repo.gitDir,
+  identifier: undefined,
+  previous: '0.0.0',
+  printHeader: true
 });
 
 test('config with revision range', matchConfig, ['^foo', 'bar'], {
   rev: ['^foo', 'bar'],
-  gitDir: undefined
+  gitDir: undefined,
+  identifier: undefined,
+  previous: undefined,
+  printHeader: true
 });
 
 test('config with dotted revision range', matchConfig, ['foo..bar'], {
   rev: ['foo..bar'],
-  gitDir: undefined
+  gitDir: undefined,
+  identifier: undefined,
+  previous: undefined,
+  printHeader: true
 });
 
 test('config with "--git-dir" flag', matchConfig, ['--git-dir', './.git', '^foo', 'bar'], {
   rev: ['^foo', 'bar'],
-  gitDir: '.git'
+  gitDir: '.git',
+  identifier: undefined,
+  previous: undefined,
+  printHeader: true
+});
+
+test('config without header', matchConfig, ['--no-header', '^foo', 'bar'], {
+  rev: ['^foo', 'bar'],
+  gitDir: undefined,
+  identifier: undefined,
+  previous: undefined,
+  printHeader: false
 });
 
 test('config client with --git-dir', async t => {
