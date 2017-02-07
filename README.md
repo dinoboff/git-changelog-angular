@@ -4,19 +4,28 @@ Generate a change log from git commits using angular commit convention.
 
 ## Usage
 
-Release example with npm and [hub].
+To upload an existing tag changelog to github using [hub]:
 
 ```
-echo '' >> .gitignore
-echo release.draft.md >> .gitignore
+git changelog v1.0.0 > draft.md
+hub release create --draft --file=draft.md --browse v1.1.0
+```
 
-git changelog v1.0.0..HEAD > release.draft.md
-npm version minor
-git push origin master v1.1.0 \
-hub release create --draft --file release.draft.md --browse v1.1.0
+To bump the current version and upload the changelog using npm:
+```
+git changelog HEAD > draft.md
+export VERSION=$(head -n 1 draft.md)
+
+npm version $VERSION
+git push origin master v$VERSION
+hub release create --draft --file=draft.md --browse v$VERSION
+
+unset VERSION
 ```
 
 ## install
+
+using npm:
 
 ```
 npm install -g git-changelog-angular
