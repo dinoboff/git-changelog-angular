@@ -1,4 +1,4 @@
-# git-changelog Angular [![Build Status](https://travis-ci.org/dinoboff/git-changelog-angular.svg?branch=master)](https://travis-ci.org/dinoboff/git-changelog-angular)
+# git-changelog Angular [![Build Status][ci-badge]][travis]
 
 Generate a change log from git commits using angular commit convention.
 
@@ -39,3 +39,5 @@ Copyright (c) 2017 Damien Lebrun
 
 
 [hub]: https://github.com/github/hub#installation
+[travis]: https://travis-ci.org/dinoboff/git-changelog-angular
+[ci-badge]: https://travis-ci.org/dinoboff/git-changelog-angular.svg?branch=master
