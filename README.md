@@ -1,4 +1,4 @@
-# git-changelog Angular
+# git-changelog Angular [![Build Status](https://travis-ci.org/dinoboff/git-changelog-angular.svg?branch=master)](https://travis-ci.org/dinoboff/git-changelog-angular)
 
 Generate a change log from git commits using angular commit convention.
 
