@@ -4,6 +4,7 @@
   "description": "Generate a change log using angular commit convention",
   "files": [
     "bin/",
+    "etc/",
     "lib/",
     "test/",
     "README.md",

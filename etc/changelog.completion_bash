@@ -1,0 +1,26 @@
+# Bash completion source for git changelog sub command.
+#
+# Add:
+#
+#       . /path/to/changelog.completion_bash
+#
+# to "~/.bashrc" or "~/.bash_profile"
+#
+
+_git_changelog_flags() {
+    cat <<-EOF
+--help
+-h
+--git-dir
+--any
+-a
+--identifier
+-i
+--header
+EOF
+}
+
+_git_changelog()
+{
+    __gitcomp_nl "$(__git_refs)$(_git_changelog_flags)"
+}
