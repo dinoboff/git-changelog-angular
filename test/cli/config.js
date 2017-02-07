@@ -32,6 +32,7 @@ test('default config', matchConfig, ['--git-dir', repo.gitDir], {
   gitDir: repo.gitDir,
   identifier: undefined,
   previous: '0.0.0',
+  next: null,
   printHeader: true
 });
 
@@ -40,6 +41,7 @@ test('config with "--any" flag', matchConfig, ['--any', '--git-dir', repo.gitDir
   gitDir: repo.gitDir,
   identifier: undefined,
   previous: '0.1.0-0',
+  next: null,
   printHeader: true
 });
 
@@ -48,6 +50,7 @@ test('config with "--identifier" flag', matchConfig, ['--identifier', 'beta', '-
   gitDir: repo.gitDir,
   identifier: 'beta',
   previous: '0.1.0-0',
+  next: null,
   printHeader: true
 });
 
@@ -56,6 +59,7 @@ test('config with revision', matchConfig, ['--git-dir', repo.gitDir, 'master'], 
   gitDir: repo.gitDir,
   identifier: undefined,
   previous: '0.0.0',
+  next: null,
   printHeader: true
 });
 
@@ -64,6 +68,7 @@ test('config with tagged revision', matchConfig, ['--git-dir', repo.gitDir, 'sta
   gitDir: repo.gitDir,
   identifier: undefined,
   previous: '0.0.0',
+  next: '0.1.0',
   printHeader: true
 });
 
@@ -71,7 +76,8 @@ test('config without previous tag', matchConfig, ['--git-dir', repo.gitDir, 'mas
   rev: ['master~4'],
   gitDir: repo.gitDir,
   identifier: undefined,
-  previous: undefined,
+  previous: null,
+  next: null,
   printHeader: true
 });
 
@@ -79,7 +85,8 @@ test('config with revision range', matchConfig, ['^foo', 'bar'], {
   rev: ['^foo', 'bar'],
   gitDir: undefined,
   identifier: undefined,
-  previous: undefined,
+  previous: null,
+  next: null,
   printHeader: true
 });
 
@@ -87,7 +94,8 @@ test('config with dotted revision range', matchConfig, ['foo..bar'], {
   rev: ['foo..bar'],
   gitDir: undefined,
   identifier: undefined,
-  previous: undefined,
+  previous: null,
+  next: null,
   printHeader: true
 });
 
@@ -95,7 +103,8 @@ test('config with "--git-dir" flag', matchConfig, ['--git-dir', './.git', '^foo'
   rev: ['^foo', 'bar'],
   gitDir: '.git',
   identifier: undefined,
-  previous: undefined,
+  previous: null,
+  next: null,
   printHeader: true
 });
 
@@ -103,7 +112,8 @@ test('config without header', matchConfig, ['--no-header', '^foo', 'bar'], {
   rev: ['^foo', 'bar'],
   gitDir: undefined,
   identifier: undefined,
-  previous: undefined,
+  previous: null,
+  next: null,
   printHeader: false
 });
 
