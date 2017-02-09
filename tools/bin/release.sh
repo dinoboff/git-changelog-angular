@@ -1,6 +1,18 @@
 #!/usr/bin/env bash
 
 clear
+BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD)
+REMOTE_BRANCH=$(git rev-parse --symbolic-full-name --abbrev-ref HEAD@{upstream})
+
+git fetch
+DIFF_COUNT=$(git rev-list --count ${BRANCH}...${REMOTE_BRANCH})
+
+if [ $DIFF_COUNT != 0 ]; then
+    echo "ERROR: ${BRANCH} is out of date with ${REMOTE_BRANCH}!"
+    git rev-list --oneline ${BRANCH}...${REMOTE_BRANCH}
+    exit 1
+fi
+
 
 FILE="draft.md"
 
