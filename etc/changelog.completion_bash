@@ -9,6 +9,7 @@
 
 _git_changelog_flags() {
     cat <<-EOF
+
 --help
 -h
 --git-dir
