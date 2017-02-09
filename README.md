@@ -1,7 +1,6 @@
 # git-changelog Angular
 
 [![Build Status][ci-badge]][travis]
-[![Build Status (win)][ci-badge-win]][appveyor]
 [![Coverage][codecov-badge]][codecov]
 [![bitHound Overall Score][bithound-badge]][bithound]
 
