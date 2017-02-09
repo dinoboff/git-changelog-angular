@@ -34,7 +34,7 @@ test('commits get all - non-reverted - commits with formatted messages', async t
 });
 
 test('commits get all commits with formatted messages by revision range', async t => {
-  const commits = await changelog.commits({rev: 'v0.0.0..v0.1.0', client: repo.client});
+  const commits = await changelog.commits({rev: ['v0.0.0..v0.1.0'], client: repo.client});
 
   t.deepEqual(commits.length, 1);
 });

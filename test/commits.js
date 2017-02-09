@@ -60,26 +60,26 @@ test('query commits by topologic order', async t => {
 });
 
 test('query revision range', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
+  const commits = await get({rev: ['^v0.0.0', 'v0.1.0'], client: repo.client});
 
   t.deepEqual(commits[0].message, 'feat: feat1');
 });
 
 test('query commit hash', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
+  const commits = await get({rev: ['v0.0.0..v0.1.0'], client: repo.client});
 
   t.is(commits[0].hash.length, 40);
 });
 
 test('query commit author', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
+  const commits = await get({rev: ['v0.0.0..v0.1.0'], client: repo.client});
 
   t.deepEqual(commits[0].author.name, 'Bob Smith');
   t.deepEqual(commits[0].author.email, 'bob@example.com');
 });
 
 test('query commit committer', async t => {
-  const commits = await get({rev: 'v0.0.0..v0.1.0', client: repo.client});
+  const commits = await get({rev: ['v0.0.0..v0.1.0'], client: repo.client});
 
   t.deepEqual(commits[0].committer.name, 'Alice Smith');
   t.deepEqual(commits[0].committer.email, 'alice@example.com');
@@ -88,7 +88,7 @@ test('query commit committer', async t => {
 test('map commit', async t => {
   const commits = await get({
     client: repo.client,
-    rev: 'v0.0.0..v0.1.0',
+    rev: ['v0.0.0..v0.1.0'],
     mapper: commit => commit.message
   });
 
@@ -98,7 +98,7 @@ test('map commit', async t => {
 test('map commit asynchronously', async t => {
   const commits = await get({
     client: repo.client,
-    rev: 'v0.0.0..v0.1.0',
+    rev: ['v0.0.0..v0.1.0'],
     mapper: commit => Promise.resolve(commit.message)
   });
 
@@ -108,7 +108,7 @@ test('map commit asynchronously', async t => {
 test('reject if mapper throws', async t => {
   const err = await t.throws(get({
     client: repo.client,
-    rev: 'v0.0.0..v0.1.0',
+    rev: ['v0.0.0..v0.1.0'],
     mapper: commit => commit.foo.bar.baz
   }));
 
