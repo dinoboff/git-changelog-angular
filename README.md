@@ -1,4 +1,9 @@
-# git-changelog Angular [![Build Status][ci-badge]][travis]
+# git-changelog Angular
+
+[![Build Status][ci-badge]][travis]
+[![Build Status (win)][ci-badge-win]][appveyor]
+[![Coverage][codecov-badge]][codecov]
+[![bitHound Overall Score][bithound-badge]][bithound]
 
 Generate a change log from git commits using angular commit convention.
 
@@ -41,3 +46,7 @@ Copyright (c) 2017 Damien Lebrun
 [hub]: https://github.com/github/hub#installation
 [travis]: https://travis-ci.org/dinoboff/git-changelog-angular
 [ci-badge]: https://travis-ci.org/dinoboff/git-changelog-angular.svg?branch=master
+[bithound]: https://www.bithound.io/github/dinoboff/git-changelog-angular
+[bithound-badge]: https://www.bithound.io/github/dinoboff/git-changelog-angular/badges/score.svg
+[codecov]: https://codecov.io/gh/dinoboff/git-changelog-angular
+[codecov-badge]: https://codecov.io/gh/dinoboff/git-changelog-angular/branch/master/graph/badge.svg
