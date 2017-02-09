@@ -11,10 +11,10 @@ cat "$FILE"
 
 echo "Bumping package version..."
 VERSION=$(head -n 1 "$FILE")
-# npm version "$VERSION"
+npm version "$VERSION"
 
 echo "Pushing changes..."
-# git push --tags
+git push --tags
 
 
 
@@ -33,8 +33,8 @@ read -r -p "Publish package? [y/N] " response
 
 case "$response" in
     [yY][eE][sS]|[yY])
-        # npm publish
-        # hub release create --draft --file="$FILE" --browse "$TAG"
+        npm publish
+        hub release create --draft --file="$FILE" --browse "$TAG"
         ;;
     *)
         echo
