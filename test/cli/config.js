@@ -36,7 +36,7 @@ test('default config', matchConfig, ['--git-dir', repo.gitDir], {
   printHeader: true
 });
 
-test('config with "--any" flag', matchConfig, ['--any', '--git-dir', repo.gitDir], {
+test('config with "--any" flag', matchConfig, args('--any'), {
   rev: ['HEAD', '^v0.1.0-0'],
   gitDir: repo.gitDir,
   identifier: undefined,
@@ -45,7 +45,7 @@ test('config with "--any" flag', matchConfig, ['--any', '--git-dir', repo.gitDir
   printHeader: true
 });
 
-test('config with "--identifier" flag', matchConfig, ['--identifier', 'beta', '--git-dir', repo.gitDir], {
+test('config with "--identifier" flag', matchConfig, args('--identifier', 'beta'), {
   rev: ['HEAD', '^v0.1.0-0'],
   gitDir: repo.gitDir,
   identifier: 'beta',
@@ -54,7 +54,7 @@ test('config with "--identifier" flag', matchConfig, ['--identifier', 'beta', '-
   printHeader: true
 });
 
-test('config with revision', matchConfig, ['--git-dir', repo.gitDir, 'master'], {
+test('config with revision', matchConfig, args('master'), {
   rev: ['master', '^v0.0.0'],
   gitDir: repo.gitDir,
   identifier: undefined,
@@ -63,7 +63,7 @@ test('config with revision', matchConfig, ['--git-dir', repo.gitDir, 'master'], 
   printHeader: true
 });
 
-test('config with tagged revision', matchConfig, ['--git-dir', repo.gitDir, 'stable'], {
+test('config with tagged revision', matchConfig, args('stable'), {
   rev: ['stable', '^v0.0.0'],
   gitDir: repo.gitDir,
   identifier: undefined,
@@ -72,7 +72,7 @@ test('config with tagged revision', matchConfig, ['--git-dir', repo.gitDir, 'sta
   printHeader: true
 });
 
-test('config without previous tag', matchConfig, ['--git-dir', repo.gitDir, 'master~4'], {
+test('config without previous tag', matchConfig, args('master~4'), {
   rev: ['master~4'],
   gitDir: repo.gitDir,
   identifier: undefined,
@@ -81,36 +81,27 @@ test('config without previous tag', matchConfig, ['--git-dir', repo.gitDir, 'mas
   printHeader: true
 });
 
-test('config with revision range', matchConfig, ['^foo', 'bar'], {
-  rev: ['^foo', 'bar'],
-  gitDir: undefined,
+test('config with revision range', matchConfig, args('HEAD', '^HEAD~2'), {
+  rev: ['HEAD', '^HEAD~2'],
+  gitDir: repo.gitDir,
   identifier: undefined,
   previous: null,
   next: null,
   printHeader: true
 });
 
-test('config with dotted revision range', matchConfig, ['foo..bar'], {
-  rev: ['foo..bar'],
-  gitDir: undefined,
+test('config with dotted revision range', matchConfig, args('HEAD~2..HEAD'), {
+  rev: ['HEAD', '^HEAD~2'],
+  gitDir: repo.gitDir,
   identifier: undefined,
   previous: null,
   next: null,
   printHeader: true
 });
 
-test('config with "--git-dir" flag', matchConfig, ['--git-dir', './.git', '^foo', 'bar'], {
-  rev: ['^foo', 'bar'],
-  gitDir: '.git',
-  identifier: undefined,
-  previous: null,
-  next: null,
-  printHeader: true
-});
-
-test('config without header', matchConfig, ['--no-header', '^foo', 'bar'], {
-  rev: ['^foo', 'bar'],
-  gitDir: undefined,
+test('config without header', matchConfig, args('--no-header', 'HEAD', '^HEAD~2'), {
+  rev: ['HEAD', '^HEAD~2'],
+  gitDir: repo.gitDir,
   identifier: undefined,
   previous: null,
   next: null,
@@ -124,11 +115,18 @@ test('config client with --git-dir', async t => {
   t.is(gitDir.trim(), repo.gitDir);
 });
 
+function args(...args) {
+  return ['--git-dir', repo.gitDir, ...args];
+}
+
 async function matchConfig(t, args, expected) {
   const fns = ['client', 'showHelp'];
   const config = await cli.config(args);
+  const expectedConfig = Object.assign(expected, {
+    rev: await Promise.all(expected.rev.map(r => repo.hash(r)))
+  });
 
-  t.deepEqual(omit(config, fns), omit(expected, fns));
+  t.deepEqual(omit(config, fns), omit(expectedConfig, fns));
   t.is(typeof config.client, 'function');
   t.is(typeof config.showHelp, 'function');
 }
